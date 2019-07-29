@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>To-Do List</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+</head>
+<body class="w3-sand">
+<script>
+var app = angular.module("toDoList", []);
+app.controller("myCtrl", function($scope) {
+    $scope.tasks = ["Use HTML, CSS and JS", "Don't forget Angular.js", "W3.CSS is a blessing"];
+    $scope.addItem = function () {
+        $scope.errortxt = "";
+        if (!$scope.addToDo) {return;}
+        if ($scope.tasks.indexOf($scope.addToDo) == -1) {
+            $scope.tasks.push($scope.addToDo);
+        } else {
+            $scope.errortxt = "The item is already in your shopping list.";
+        }
+    }
+    $scope.removeItem = function (x) {
+        $scope.errortxt = "";
+        $scope.tasks.splice(x, 1);
+    }
+});
+</script>
+<center>
+  <div class="w3-circle w3-green"style="max-width:800px;height:800px;padding-top:2%;">
+  <div ng-app="toDoList" ng-cloak ng-controller="myCtrl" class="w3-card-2 w3-margin w3-round-xlarge" style="max-width:400px;border:2em double;">
+    <header class="w3-container w3-deep-purple w3-padding-16">
+      <h3>To-Do List</h3>
+    </header>
+    <ul class="w3-ul">
+      <li ng-repeat="x in tasks" class="w3-padding-16 w3-text-dark-gray">{{x}}<span ng-click="removeItem($index)" style="cursor:pointer;" class="w3-right w3-margin-right">×</span></li>
+    </ul>
+    <div class="w3-container w3-purple w3-padding-16">
+      <div class="w3-row w3-margin-top">
+        <div class="w3-col s10">
+          <input placeholder="Add tasks here" ng-model="addToDo" class="w3-input w3-border w3-padding w3-pale-red">
+        </div>
+        <div class="w3-col s2">
+          <button ng-click="addItem()" class="w3-btn w3-padding w3-black">Add</button>
+        </div>
+      </div>
+      <p class="w3-text-red">{{errortxt}}</p>
+    </div>
+  </div>
+  </div>
+</center>
+</body>
+</html>
